@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Simple example of audio with Howler</title>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.1/howler.min.js"
+      integrity="sha512-L6Z/YtIPQ7eU3BProP34WGU5yIRk7tNHk7vaC2dB1Vy1atz6wl9mCkTPPZ2Rn1qPr+vY2mZ9odZLdGYuaBk7dQ=="
+      crossorigin="anonymous"
+    ></script>
+    <meta name="description" content="A simple exercise template." />
+    <!-- styles -->
+    <style>
+      .highlight {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Digital Writing Audio Exercise</h1>
+    <div>
+      <div id="poem-line-0">Pigs</div>
+      <div id="poem-line-1">Donkey</div>
+      <div id="poem-line-2">Goats</div>
+    </div>
+    <button id="play-sounds">Play sounds</button>
+    <!-- script -->
+    <script>
+      const currentPoem = [
+        "https://cdn.glitch.global/ed08d493-09fe-469b-bb79-6c9d544e0622/bbc_animals--c_07074094.mp3?v=1653197513233",
+        "https://cdn.glitch.global/ed08d493-09fe-469b-bb79-6c9d544e0622/bbc_animals--c_07074095.mp3?v=1653197526234",
+        "https://cdn.glitch.global/ed08d493-09fe-469b-bb79-6c9d544e0622/bbc_farms--dai_07063007.mp3?v=1653197532565"
+      ];
+      const button = document.getElementById("play-sounds");
+      function readPoem(lineIndex) {
+        let sound = new Howl({
+          src: [currentPoem[lineIndex]],
+          preload: true,
+          onend: function() {
+            if (lineIndex < currentPoem.length - 1) {
+              readPoem(lineIndex + 1);
+            }
+            document
+              .querySelector("#poem-line-" + lineIndex)
+              .classList.toggle("highlight");
+          }
+        });
+        document
+          .querySelector("#poem-line-" + lineIndex)
+          .classList.toggle("highlight");
+        sound.play();
+      }
+      button.addEventListener("click", function() {
+        readPoem(0);
+      });
+    </script>
+    <!-- include the Glitch button to show what the webpage is about and
+          to make it easier for folks to view source and remix -->
+    <div class="glitchButton" style="position:fixed;top:20px;right:20px;"></div>
+    <script src="https://button.glitch.me/button.js" defer></script>
+  </body>
+</html>

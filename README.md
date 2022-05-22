@@ -1,2 +1,3 @@
-# howler.js-audio
-week 9 exercise for howler audio
+# Simple example of audio with Howler
+
+An empty webpage for HTML/CSS/JavaScript exercises.
